@@ -9,9 +9,6 @@ const bookService = new BookService();
 const bookInfo = document.getElementById('book-info');
 
 function displayBookDetails(book) {
-    // Actualizar título
-    const bookTitleNav = document.getElementById('book-title-nav');
-    bookTitleNav.innerHTML = book.title;
 
     // Crear elementos
     const bookDetails = document.createElement('div');
@@ -21,12 +18,11 @@ function displayBookDetails(book) {
     bookImg.src = book.formats['image/jpeg'];
     bookDetails.appendChild(bookImg);
 
-    // const bookAuthor = document.createElement('p');
-    // if (book.authors && book.authors.length > 0) {
-    //     const author = book.authors[0];
-    //     bookAuthor.textContent = `${author.name} (${author.birth_year} - ${author.death_year || 'presente'})`;
-    // }
-    // bookDetails.appendChild(bookAuthor);
+    const bookTitle = document.createElement('h1');
+    bookTitle.classList.add('detail-title')
+    bookTitle.innerHTML = book.title;
+    bookDetails.appendChild(bookTitle)
+
     bookInfo.appendChild(bookDetails);
 
     const summaryBodyOne = document.querySelector('#collapseOne .accordion-body');
