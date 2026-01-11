@@ -1,16 +1,21 @@
 export class BookService {
-    constructor() {  
-        this.baseUrl='https://gutendex.com/books/';
-    }
-      getBooks(){
-        const url = this.baseUrl;
-        return fetch(url)
-        .then(resp=> resp.json())
-        .then(result => result)
-            
-        }
+  static url = 'https://gutendex.com/books/'
+  constructor() {
+  }
+  getBooks() {
+    return fetch(BookService.url)
+      .then(resp => resp.json())
+      .then(result => result)
 
-    getBooksById(id){
-        const url = this.baseUrl
-    }
+  }
+
+  getBooksById(bookId) {
+    return fetch(BookService.url + bookId + '/')
+      .then(resp => resp.json())
+      .then(result => result)
+  }
+  searchBook(query) {
+    return fetch(`https://gutendex.com/books/?search=${encodeURIComponent(query)}`)
+      .then(res => res.json());
+  }
 }
