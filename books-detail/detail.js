@@ -11,65 +11,85 @@ function displayBookDetails(book) {
     // Crear elementos
     const bookDetails = document.createElement('div');
     bookDetails.classList.add('book-details');
-    
+
     const bookImg = document.createElement('img');
+    bookImg.classList.add('detail-img')
     bookImg.src = book.formats['image/jpeg'];
     bookDetails.appendChild(bookImg);
-    
+
     const bookTitle = document.createElement('h1');
     bookTitle.classList.add('detail-title')
     bookTitle.innerHTML = book.title;
     bookDetails.appendChild(bookTitle)
     bookInfo.appendChild(bookDetails);
-    
+
     // Acordeón 1: Summary
     const summaryBodyOne = document.querySelector('#collapseOne .accordion-body');
     if (summaryBodyOne && book.summaries && book.summaries[0]) {
         summaryBodyOne.textContent = book.summaries[0];
     }
-    
+
     // Acordeón 2: Author
     const authorBody = document.querySelector('#collapseTwo .accordion-body');
     if (authorBody && book.authors && book.authors.length > 0) {
         const author = book.authors[0];
         authorBody.textContent = `${author.name} (${author.birth_year} - ${author.death_year || 'presente'})`;
     }
-    
+
     // Acordeón 3: Bookshelves y Languages
     const bookshelvesBody = document.querySelector('#collapseThree .accordion-body');
     if (bookshelvesBody) {
         bookshelvesBody.innerHTML = '';
-        
+
         // Bookshelves
         if (book.bookshelves && book.bookshelves.length > 0) {
             const bookshelvesTitle = document.createElement('strong');
             bookshelvesTitle.textContent = 'Categories:';
             bookshelvesBody.appendChild(bookshelvesTitle);
-            
+
             const list = document.createElement('ul');
             list.classList.add('mb-3');
-            
+
             book.bookshelves.forEach(shelf => {
                 const li = document.createElement('li');
                 li.textContent = shelf;
                 list.appendChild(li);
             });
-            
+
             bookshelvesBody.appendChild(list);
         }
-        
+
+        //Subjects
+
+        if (book.subjects && book.subjects.length > 0) {
+            const bookSubjectTitle = document.createElement('strong');
+            bookSubjectTitle.textContent = 'Subjects:';
+            bookshelvesBody.appendChild(bookSubjectTitle);
+
+            const list2 = document.createElement('ul');
+            list2.classList.add('mb-3');
+
+            book.subjects.forEach(subj => {
+                const li2 = document.createElement('li');
+                li2.textContent = subj;
+                list2.appendChild(li2);
+            });
+
+            bookshelvesBody.appendChild(list2);
+        }
+
         // Languages
         if (book.languages && book.languages.length > 0) {
             const languagesTitle = document.createElement('strong');
             languagesTitle.textContent = 'Languages: ';
             bookshelvesBody.appendChild(languagesTitle);
-            
+
             const languagesText = document.createElement('span');
             languagesText.textContent = book.languages.join(', ').toUpperCase();
             bookshelvesBody.appendChild(languagesText);
         }
     }
-} // ✅ Aquí cierra displayBookDetails
+}
 
 function loadBook() {
     console.log('1. bookId:', bookId);
