@@ -1,16 +1,21 @@
+import { environment } from "./books-detail/environment/environment.dev.js";
+// import { environment } from "./books-detail/environment/environment.js";
+
 export class BookService {
-  static url = 'https://gutendex.com/books/'
+
   constructor() {
   }
   getBooks() {
-    return fetch(BookService.url)
+    console.log('getting books' + environment.url);
+    
+    return fetch(environment.url)
       .then(resp => resp.json())
       .then(result => result)
 
   }
 
   getBooksById(bookId) {
-    return fetch(BookService.url + bookId + '/')
+    return fetch(environment.url + bookId + '/')
       .then(resp => resp.json())
       .then(result => result)
   }
